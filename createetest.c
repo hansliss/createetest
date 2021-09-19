@@ -117,8 +117,8 @@ int main(int argc, char *argv[]) {
 	  // PNG data
 	  fread(inbuf, 1, pngSize, infiles[i]);
 	  if (!(isBaselayer && i > 0)) {
-	    fflush(outfile);
 	    fwrite(inbuf, 1, pngSize, outfile);
+	    // There's a newline after the PNG file.
 	    fputs("\n", outfile);
 	  }
 	  
@@ -137,7 +137,7 @@ int main(int argc, char *argv[]) {
 	    fputs(inbuf, outfile);
 	  }
 	  
-	  // G4 S100;
+	  // G4 S8;
 	  fgets(inbuf, BUFSIZE, infiles[i]);
 	  // Insert a NUL after the last digit, by searching backwards.
 	  while (strlen(inbuf) && !isdigit(inbuf[strlen(inbuf) - 1])) {
@@ -151,7 +151,7 @@ int main(int argc, char *argv[]) {
 	    isBaselayer = 1;
 	  }
 	  if (!(isBaselayer && i > 0)) {
-	    fprintf(outfile, "G4 S%.3lf;\n", waitTime);
+	    fprintf(outfile, "G4 S%.2lf;\n", waitTime);
 	  }
 
 	  // ;L:2;
@@ -179,4 +179,5 @@ int main(int argc, char *argv[]) {
     free(infiles);
     infiles = NULL;
   }
+  return 0;
 }
