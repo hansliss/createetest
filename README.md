@@ -1,7 +1,7 @@
 # createetest
 Create exposure test file for the Sparkmaker FHD
 
-** How to use this
+## How to use this
 Here's an example, assuming you want to test eight different exposure times from 8s to 15s:
 
 1. Load your test shape in Chitubox.
@@ -19,7 +19,7 @@ Here's an example, assuming you want to test eight different exposure times from
 
 Run the program without parameters to see usage info.
 
-** TODO
+## TODO
 Currently, the program assumes a lot. It assumes that the structure of a single layer, apart from Z axis movement, is fixed:
 
 ```
