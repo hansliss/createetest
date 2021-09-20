@@ -19,3 +19,10 @@ Here's an example, assuming you want to test eight different exposure times from
 
 Run the program without parameters to see usage info.
 
+## To build
+You can either build this with Visual Studio, or in Linux or Mingw-64, using the normal Gnu autoconf method:
+```
+./configure
+make
+make install
+```
