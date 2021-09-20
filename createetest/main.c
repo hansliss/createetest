@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<unistd.h>
 
-#include "createetest.h"
+#include "etest.h"
 
 void usage(char *p) {
   fprintf(stderr, "Usage: %s -B <# base layers> -b <base time> -d <delta time> -o <output file> <file> ...\n", p);

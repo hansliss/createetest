@@ -1,4 +1,4 @@
-AC_INIT(createetest.c)
+AC_INIT(etest.c)
 PRODUCT=createetest
 VERSION=1.0
 AC_CONFIG_HEADER(config.h)
