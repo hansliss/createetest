@@ -1,11 +1,8 @@
 # createetest
 Create exposure test file for the Sparkmaker FHD
 
-## NOTE: This currently creates a print file with multiple [move Z axis to top] commands at the end, causing the Sparkmaker to keep hitting the top of the Z axis.
-If you need to use the program, edit out those MOVE commands before printing!
-
 ## How to use this
-Here's an example, assuming you want to test eight different exposure times from 8s to 15s:
+Here's an example, assuming you want to test eight different exposure times from 8s to 15s, with three base layers:
 
 1. Load your test shape in Chitubox.
 2. Make a total of eight copies, and distribute them on the build plate (if you keep them tied together, it'll be easier to keep track of which one is which afterwards).
@@ -17,29 +14,8 @@ Here's an example, assuming you want to test eight different exposure times from
 8. Now run the program, and generate the test file!
 
 ```
-./createetest -b 8 -d 1 -o etest.fhd etest_??.fhd
+./createetest -B 3 -b 8 -d 1 -o etest.fhd etest_??.fhd
 ```
 
 Run the program without parameters to see usage info.
 
-## TODO
-Currently, the program assumes a lot. It assumes that the structure of a single layer, apart from Z axis movement, is fixed:
-
-```
-;dataSize:19354
-{{
-<PNG data>
-}}
-M106 S255;
-G4 S100;
-;L:2;
-M106 S0;
-```
-
-If Chitubox starts producing different G-code, this program will have to be modified to accommodate that.
-
-Additionally, it blindly assumes that all the files have exactly the same structure.
-If you follow the instructions, that's not going to be a problem.
-However, we really only need the image blobs from all the input files apart from the first one, so we could
-just as easily scan those files until the ";dataSize" header appears and use that to extract the PNG, and
-ignore all other rows, copying the necessary commands from the first file instead of reading them from each file.
