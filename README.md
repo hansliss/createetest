@@ -1,6 +1,9 @@
 # createetest
 Create exposure test file for the Sparkmaker FHD
 
+## NOTE: This currently creates a print file with multiple [move Z axis to top] commands at the end, causing the Sparkmaker to keep hitting the top of the Z axis.
+If you need to use the program, edit out those MOVE commands before printing!
+
 ## How to use this
 Here's an example, assuming you want to test eight different exposure times from 8s to 15s:
 
