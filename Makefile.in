@@ -23,8 +23,8 @@ mandir = @mandir@
 DISTFILES =
 
 TARGET=createetest
-SOURCES=createetest.c
-OBJS=createetest.o
+SOURCES=main.c createetest.c
+OBJS=main.o createetest.o
 LIB_OBJS=
 
 all: $(TARGET)

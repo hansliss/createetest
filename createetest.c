@@ -9,10 +9,6 @@
 #define SDATASIZE ";dataSize:"
 #define SZ_SDATASIZE (sizeof(SDATASIZE) - 1)
 
-void usage(char *p) {
-  fprintf(stderr, "Usage: %s -B <# base layers> -b <base time> -d <delta time> -o <output file> <file> ...\n", p);
-}
-
 void handleImage(char *dataSizeLine, FILE *infile, FILE *outfile, int doout) {
   static char inbuf[BUFSIZE];
   int pngSize;
@@ -69,58 +65,9 @@ void handleImage(char *dataSizeLine, FILE *infile, FILE *outfile, int doout) {
   }
 }
 
-int main(int argc, char *argv[]) {
-  FILE **infiles=NULL;
-  FILE *outfile=NULL;
-  int nfiles=0;
-  int baseLayers=3;
-  double baseTime=-1;
-  double deltaTime=-1;
-  int o, i;
+int createetest(int nfiles, FILE **infiles, FILE *outfile, double baseTime, double deltaTime, int baseLayers) {
+  int i;
   static char inbuf[BUFSIZE];
-  while ((o=getopt(argc, argv, "B:b:d:o:")) != -1) {
-    switch(o) {
-    case 'B':
-      baseLayers=atoi(optarg);
-      break;
-    case 'b':
-      baseTime=atof(optarg);
-      break;
-    case 'd':
-      deltaTime=atof(optarg);
-      break;
-    case 'o':
-      if (!(outfile = fopen(optarg, "wb"))) {
-	perror(optarg);
-	return -2;
-      }
-      break;
-    default:
-      usage(argv[0]);
-      return -1;
-      break;
-    }
-  }
-  if (baseTime == -1 || deltaTime == -1) {
-    usage(argv[0]);
-    return -1;
-  }
-
-  nfiles = argc - optind;
-  infiles = (FILE **)malloc(nfiles * sizeof(FILE *));
-  memset(infiles, 0, nfiles * sizeof(FILE *));
-  for (i = 0; i < nfiles; i++) {
-    if (!(infiles[i] = fopen(argv[i + optind], "rb"))) {
-      perror(argv[i + optind]);
-      return -2;
-    }
-  }
-
-  if (nfiles < 2) {
-    usage(argv[0]);
-    return -3;
-  }
-
   while (fgets(inbuf, BUFSIZE, infiles[0])) {
     if (strncmp(inbuf, SDATASIZE, SZ_SDATASIZE) != 0) {
       fputs(inbuf, outfile);
@@ -169,19 +116,6 @@ int main(int argc, char *argv[]) {
 	}
       }
     }
-  }
-  if (outfile) {
-    fclose(outfile);
-  }
-  if (infiles) {
-    for (i = 0; i < nfiles; i++) {
-      if (infiles[i]) {
-	fclose(infiles[i]);
-	infiles[i] = NULL;
-      }
-    }
-    free(infiles);
-    infiles = NULL;
   }
   return 0;
 }
